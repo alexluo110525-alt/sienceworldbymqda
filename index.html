@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Science World | 酸碱化学 · 官方学习平台 by MQDA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fc 0%, #e9eef4 100%);
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        /* 官方风格玻璃容器 */
+        .glass-app {
+            max-width: 1440px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(20px);
+            border-radius: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* 导航栏 - 官方风格 */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.6);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo h2 {
+            font-weight: 700;
+            background: linear-gradient(135deg, #1a4d6f, #2c6e8f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 1.8rem;
+            letter-spacing: -0.3px;
+        }
+
+        .logo p {
+            font-size: 0.7rem;
+            color: #5a6e7c;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 0.3rem 0.6rem;
+            border-radius: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: #3a5468;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0.5rem 1.2rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn i {
+            font-size: 0.9rem;
+        }
+
+        .nav-btn.active {
+            background: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            color: #1f6e8c;
+            font-weight: 600;
+        }
+
+        .nav-btn:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.8);
+            transform: translateY(-1px);
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .auth-btn {
+            background: #ffffffcc;
+            border: 1px solid #cbd5e1;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            color: #2c5a7a;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .auth-btn:hover {
+            background: white;
+            transform: scale(0.97);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .user-greeting {
+            color: #1e4a6e;
+            background: #ffffffcc;
+            padding: 0.3rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .content-panel {
+            padding: 2rem;
+            min-height: 650px;
+            transition: all 0.3s ease;
+            animation: fadeSlideUp 0.4s ease-out;
+        }
+
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(12px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        /* 卡片通用样式 */
+        .card-module {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 1.8rem;
+            border: 1px solid rgba(255,255,255,0.9);
+            padding: 1.8rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 650;
+            margin-bottom: 1.5rem;
+            color: #1e4a6e;
+            border-left: 5px solid #48b5c0;
+            padding-left: 1rem;
+        }
+
+        /* 知识网格 */
+        .knowledge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1rem;
+        }
+
+        .term-card {
+            background: white;
+            border-radius: 1.2rem;
+            padding: 1rem 1.2rem;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+        .term-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-color: #cbd5e1;
+        }
+
+        .term-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #1e5f7e;
+        }
+
+        .detail-btn {
+            background: #eef3fc;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            color: #1f6e8c;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+        .detail-btn:hover {
+            background: #e0edf8;
+        }
+
+        /* 游戏卡片 */
+        .games-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .game-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            flex: 1 1 400px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border: 1px solid #e2edf2;
+        }
+        .game-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1f6e8c;
+            margin-bottom: 1rem;
+        }
+        .game-area {
+            background: #f9fbfe;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            min-height: 240px;
+        }
+        .game-btn, .item-button {
+            background: #eef3fc;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 2rem;
+            margin: 0.3rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: #1f5e7e;
+            transition: 0.1s;
+        }
+        .game-btn:hover, .item-button:hover {
+            background: #e0eaf3;
+            transform: scale(0.98);
+        }
+        .score-display {
+            font-weight: bold;
+            margin-top: 0.8rem;
+            color: #2b6a4e;
+        }
+
+        /* 学术活动板块 */
+        .event-hero {
+            background: linear-gradient(135deg, #1e4a6e 0%, #2c6e8f 100%);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            color: white;
+            margin-bottom: 2rem;
+        }
+        .prize-card {
+            background: white;
+            border-radius: 1.2rem;
+            padding: 1.2rem;
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .prize-badge {
+            background: #fef3c7;
+            color: #b45309;
+            padding: 0.3rem 1rem;
+            border-radius: 2rem;
+            font-weight: bold;
+        }
+        .leaderboard {
+            background: #f8fafc;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        /* 笔记样式 */
+        .notes-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .note-editor {
+            background: #f8fafc;
+            border-radius: 1.2rem;
+            padding: 1.2rem;
+        }
+        .note-title-input, .note-content-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 1rem;
+            background: white;
+        }
+        .note-content-input {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .notes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-height: 380px;
+            overflow-y: auto;
+        }
+        .note-item {
+            background: white;
+            border-radius: 1rem;
+            padding: 1rem;
+            border-left: 4px solid #48b5c0;
+        }
+        .small-btn {
+            background: #eef2f8;
+            border: none;
+            padding: 0.3rem 0.8rem;
+            border-radius: 1rem;
+            cursor: pointer;
+        }
+
+        /* 关于我们页面 */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        .about-card {
+            background: white;
+            border-radius: 1.2rem;
+            padding: 1.2rem;
+            border: 1px solid #e2edf2;
+        }
+        .member-badge {
+            background: #eef3fc;
+            padding: 0.4rem 0.8rem;
+            border-radius: 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.3rem;
+        }
+        .quote-text {
+            background: #eef3fc;
+            padding: 1.2rem;
+            border-radius: 1rem;
+            border-left: 4px solid #48b5c0;
+            margin-top: 1.5rem;
+        }
+
+        /* 模态框 */
+        .full-modal {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(12px);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+        .modal-content-glass {
+            max-width: 1000px;
+            margin: 1rem auto;
+            background: white;
+            border-radius: 2rem;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+        }
+        .close-detail {
+            float: right;
+            font-size: 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #6c8da3;
+        }
+        .word-badge {
+            background: #eef3fc;
+            display: inline-block;
+            margin: 0.3rem;
+            padding: 0.3rem 0.9rem;
+            border-radius: 2rem;
+            cursor: pointer;
+        }
+        .quiz-question {
+            background: #f9fbfe;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #7bcbd9;
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 0.8rem 0;
+        }
+        .opt-btn {
+            background: #eef2f8;
+            border: 1px solid #cbd5e1;
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            cursor: pointer;
+        }
+        .toast-msg {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e2f3f;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 40px;
+            z-index: 2100;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .modal {
+            position: fixed;
+            top:0;left:0;
+            width:100%;height:100%;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1500;
+        }
+        .modal-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            width: 340px;
+        }
+        input {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 10px;
+            border-radius: 2rem;
+            width: 100%;
+            margin: 8px 0;
+        }
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; align-items: stretch; }
+            .nav-links { justify-content: center; }
+            .content-panel { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="glass-app">
+    <div class="navbar">
+        <div class="logo">
+            <h2>🔬 Science World</h2>
+            <p>--- by MQDA · 官方学习平台</p>
+        </div>
+        <div class="nav-links">
+            <button class="nav-btn" data-nav="home"><i class="fas fa-atom"></i> 主页</button>
+            <button class="nav-btn" data-nav="games"><i class="fas fa-gamepad"></i> 科学游戏</button>
+            <button class="nav-btn" data-nav="practice"><i class="fas fa-flask"></i> 练习</button>
+            <button class="nav-btn" data-nav="events"><i class="fas fa-trophy"></i> 学术活动</button>
+            <button class="nav-btn" data-nav="notes"><i class="fas fa-book-open"></i> 我的笔记</button>
+            <button class="nav-btn" data-nav="about"><i class="fas fa-users"></i> 关于我们</button>
+            <button class="nav-btn" data-nav="profile"><i class="fas fa-user"></i> 个人资料</button>
+        </div>
+        <div class="user-area" id="userArea"></div>
+    </div>
+    <div class="content-panel" id="mainContent"></div>
+</div>
+
+<script>
+    // ================= 用户系统 =================
+    let currentUser = null;
+    let activeTab = "home";
+    let users = JSON.parse(localStorage.getItem("scienceUsers")) || [];
+    const adminUsername = "alexluothegoat", adminPassword = "110525Lh";
+    if(!users.find(u=>u.username===adminUsername)) users.push({username:adminUsername,password:adminPassword,notes:[],eventSubmission:null});
+    
+    function saveUsers(){ localStorage.setItem("scienceUsers",JSON.stringify(users)); }
+    function registerUser(u,p){ if(!u||!p||users.find(x=>x.username===u)) return false; users.push({username:u,password:p,notes:[],eventSubmission:null}); saveUsers(); return true; }
+    function loginUser(u,p){ return users.find(x=>x.username===u && x.password===p)||null; }
+    function showMessage(msg,isErr=false){ let d=document.querySelector('.toast-msg'); if(d) d.remove(); let div=document.createElement('div'); div.className='toast-msg'; div.innerText=msg; if(isErr) div.style.background="#9b2c2c"; document.body.appendChild(div); setTimeout(()=>div.remove(),2200);}
+    function updateAuthUI(){
+        let container=document.getElementById("userArea");
+        if(currentUser){
+            container.innerHTML=`<span class="user-greeting"><i class="fas fa-user-check"></i> ${currentUser.username}</span><button class="auth-btn" id="logoutBtn">登出</button>`;
+            document.getElementById("logoutBtn")?.addEventListener('click',()=>{currentUser=null; showMessage("已安全登出"); updateAuthUI(); renderActiveTab();});
+        } else {
+            container.innerHTML=`<button class="auth-btn" id="showLoginBtn">登录</button><button class="auth-btn" id="showRegisterBtn">注册</button>`;
+            document.getElementById("showLoginBtn")?.addEventListener('click',()=>showAuthModal('login'));
+            document.getElementById("showRegisterBtn")?.addEventListener('click',()=>showAuthModal('register'));
+        }
+    }
+    function showAuthModal(mode){
+        let mDiv=document.createElement('div'); mDiv.className='modal';
+        mDiv.innerHTML=`<div class="modal-card"><h3 style="color:#1f5f7e">${mode==='login'?'登录':'注册'}</h3><input id="modalUser" placeholder="用户名"><input id="modalPwd" type="password" placeholder="密码"><button class="auth-btn" id="modalSubmit" style="background:#cbe3ef;">${mode==='login'?'登录':'注册'}</button><button class="auth-btn" id="modalClose">取消</button></div>`;
+        document.body.appendChild(mDiv);
+        let submit=document.getElementById('modalSubmit'), closeB=document.getElementById('modalClose');
+        submit.onclick=()=>{
+            let un=document.getElementById('modalUser').value.trim(), pw=document.getElementById('modalPwd').value.trim();
+            if(!un||!pw){ showMessage("输入完整",true); return; }
+            if(mode==='login'){
+                let u=loginUser(un,pw);
+                if(u){ currentUser=u; showMessage(`欢迎 ${un}`); updateAuthUI(); renderActiveTab(); mDiv.remove();}
+                else showMessage("账号或密码错误",true);
+            } else {
+                if(registerUser(un,pw)){ showMessage("注册成功，请登录"); mDiv.remove(); showAuthModal('login');}
+                else showMessage("用户名已存在",true);
+            }
+        };
+        closeB.onclick=()=>mDiv.remove();
+    }
+
+    // ================= 笔记功能 =================
+    function getUserNotes(){ if(!currentUser) return []; let user=users.find(u=>u.username===currentUser.username); if(!user.notes) user.notes=[]; return user.notes; }
+    function saveNote(title,content){ if(!currentUser){ showMessage("请先登录",true); return false; } let user=users.find(u=>u.username===currentUser.username); if(!user.notes) user.notes=[]; user.notes.unshift({id:Date.now(), title:title||"学习笔记", content:content, date:new Date().toLocaleString()}); saveUsers(); showMessage("笔记已保存！",false); return true; }
+    function deleteNote(nid){ if(!currentUser) return; let user=users.find(u=>u.username===currentUser.username); user.notes=user.notes.filter(n=>n.id!=nid); saveUsers(); showMessage("笔记已删除",false); renderActiveTab(); }
+    window.deleteNote=deleteNote;
+    function renderNotesList(){ let notes=getUserNotes(); if(notes.length===0) return `<div style="text-align:center;padding:2rem;color:#6f8aa3;">📭 暂无笔记，记录你的学习心得吧~</div>`; return `<div class="notes-list">${notes.map(n=>`<div class="note-item"><div class="note-item-header"><span class="note-item-title">📝 ${escapeHtml(n.title)}</span><span class="note-item-date">${n.date}</span></div><div class="note-item-content">${escapeHtml(n.content).replace(/\n/g,'<br>')}</div><div class="note-item-actions"><button class="small-btn" onclick="deleteNote(${n.id})">删除</button></div></div>`).join('')}</div>`; }
+    function escapeHtml(s){ return s.replace(/[&<>]/g,function(m){if(m==='&')return'&amp;';if(m==='<')return'&lt;';if(m==='>')return'&gt;';return m;}); }
+
+    // ================= 7大知识板块 =================
+    const chapters = [
+        { id:"c1", title:"🧪 1. Common Acids and Alkalis", content:"<strong>Acids:</strong> Vinegar, lemon, soft drinks, yoghurt, apples. <strong>Alkalis:</strong> Soap, toothpaste, baking soda, bleach.", words:[{eng:"Acid",chi:"酸"},{eng:"Alkali",chi:"鹼"}] },
+        { id:"c2", title:"📊 2. Properties", content:"Acids: sour, corrosive, blue litmus→red. Alkalis: bitter, slippery, red litmus→blue.", words:[{eng:"Corrosive",chi:"腐蝕性"}] },
+        { id:"c3", title:"🎨 3. Indicators", content:"Litmus, universal indicator, red cabbage. pH paper & meter.", words:[{eng:"Indicator",chi:"指示劑"}] },
+        { id:"c4", title:"📏 4. pH Scale", content:"0-14. pH<7 acidic, 7 neutral, >7 alkaline.", words:[{eng:"pH scale",chi:"pH標度"}] },
+        { id:"c5", title:"⚗️ 5. Reactions", content:"Neutralisation: Acid+Alkali→Salt+Water. Acid+Metal→Salt+H₂. Acid+Carbonate→Salt+Water+CO₂.", words:[{eng:"Neutralisation",chi:"中和"}] },
+        { id:"c6", title:"🌧️ 6. Acid Rain", content:"pH<5.6, caused by SO₂, NOₓ. Damages buildings, forests, lakes.", words:[{eng:"Acid rain",chi:"酸雨"}] },
+        { id:"c7", title:"⚠️ 7. Safety", content:"Wear goggles, add acid to water, never taste, don't mix bleach+acid.", words:[{eng:"Goggles",chi:"護目鏡"}] }
+    ];
+    function openDetailPage(ch){
+        let modal=document.createElement('div'); modal.className='full-modal';
+        let wordsHtml=`<div>${ch.words.map(w=>`<span class="word-badge" data-trans="${w.chi}">📖 ${w.eng} 🔍</span>`).join('')}</div>`;
+        modal.innerHTML=`<div class="modal-content-glass"><button class="close-detail">&times;</button><h2 style="color:#1c5d7a;">${ch.title}</h2><div style="margin:1rem 0;">${ch.content}</div><h3>📖 词汇翻译 (点击查看中文)</h3>${wordsHtml}<div class="exp-card" style="margin-top:1rem;"><p><strong>🧪 中和模拟器</strong></p><button class="game-btn" id="acidSim">➕ 加酸</button><button class="game-btn" id="baseSim">➕ 加碱</button><p id="phSimVal">当前pH: 7.0</p></div></div>`;
+        document.body.appendChild(modal);
+        modal.querySelector('.close-detail').onclick=()=>modal.remove();
+        modal.querySelectorAll('.word-badge').forEach(el=>{ el.onclick=()=>{ let t=el.getAttribute('data-trans'); if(t) showMessage(`🇨🇳 中文: ${t}`,false); }; });
+        let ph=7, span=modal.querySelector('#phSimVal');
+        modal.querySelector('#acidSim').onclick=()=>{ ph=Math.max(0,ph-0.7); span.innerText=`当前pH: ${ph.toFixed(1)}`; showMessage("加酸，pH下降",false); };
+        modal.querySelector('#baseSim').onclick=()=>{ ph=Math.min(14,ph+0.7); span.innerText=`当前pH: ${ph.toFixed(1)}`; showMessage("加碱，pH上升",false); };
+    }
+    function renderHome(){ return `<div class="card-module"><div class="section-title"><i class="fas fa-microscope"></i> 酸碱化学 · 完整知识库</div><div class="knowledge-grid">${chapters.map((ch,i)=>`<div class="term-card"><div><div class="term-title">${ch.title}</div></div><button class="detail-btn" data-idx="${i}"><i class="fas fa-flask"></i> 详细学习</button></div>`).join('')}</div></div>`; }
+
+    // ================= 游戏 =================
+    function initGame1(ct){
+        let items=[{name:"柠檬汁",type:"acid"},{name:"醋",type:"acid"},{name:"汽水",type:"acid"},{name:"肥皂",type:"alkali"},{name:"牙膏",type:"alkali"},{name:"小苏打",type:"alkali"},{name:"酸奶",type:"acid"},{name:"漂白水",type:"alkali"}];
+        let cur=[...items], score=0, answered=0;
+        function upd(){
+            let list=ct.querySelector('#g1list'); if(!list) return;
+            if(cur.length===0){ list.innerHTML='<p>🎉 完成所有分类！</p>'; ct.querySelector('#g1score').innerHTML=`最终得分: ${score}/${answered}`; return; }
+            list.innerHTML='';
+            cur.forEach(it=>{ let btn=document.createElement('button'); btn.className='item-button'; btn.innerText=it.name; btn.onclick=()=>{ let ans=prompt(`“${it.name}” 是酸性(acid)还是碱性(alkali)? 输入 acid 或 alkali`).toLowerCase(); if(ans===it.type){ score++; showMessage(`✅ 正确！`,false); }else{ showMessage(`❌ 错误！实际是${it.type==='acid'?'酸性':'碱性'}`,true); } answered++; cur.splice(cur.indexOf(it),1); ct.querySelector('#g1score').innerHTML=`得分: ${score}/${answered}`; upd(); }; list.appendChild(btn); });
+        }
+        upd();
+        ct.querySelector('#resetG1').onclick=()=>{ cur=[...items]; score=0; answered=0; ct.querySelector('#g1score').innerHTML='得分: 0/0'; upd(); showMessage("游戏重置",false); };
+    }
+    function initGame2(ct){
+        let target=Math.floor(Math.random()*13)+2, curPh=7;
+        function updUI(){ ct.querySelector('#tPh').innerText=target; ct.querySelector('#cPh').innerText=curPh.toFixed(1); }
+        updUI();
+        ct.querySelector('#addAcidG').onclick=()=>{ curPh=Math.max(0,curPh-0.7); updUI(); showMessage("加酸",false); };
+        ct.querySelector('#addBaseG').onclick=()=>{ curPh=Math.min(14,curPh+0.7); updUI(); showMessage("加碱",false); };
+        ct.querySelector('#checkG').onclick=()=>{ let msg=ct.querySelector('#g2msg'); if(Math.abs(curPh-target)<0.6){ msg.innerHTML="🎉 完美中和！达到目标pH！"; showMessage("中和成功！",false); }else{ msg.innerHTML=`❌ 当前pH ${curPh.toFixed(1)}，目标 ${target}，继续调整`; showMessage("未达标",true); } };
+        ct.querySelector('#resetG2').onclick=()=>{ target=Math.floor(Math.random()*13)+2; curPh=7; updUI(); ct.querySelector('#g2msg').innerHTML="新回合！"; showMessage(`新目标 pH ${target}`,false); };
+    }
+    function renderGames(){ return `<div class="card-module"><div class="section-title"><i class="fas fa-gamepad"></i> 🎮 科学游戏中心</div><div class="games-grid"><div class="game-card"><div class="game-title">🧪 酸碱分类大师</div><div class="game-area" id="game1Area"><div id="g1list" style="margin-bottom:10px;"></div><button class="game-btn" id="resetG1">🔄 重置</button><div class="score-display" id="g1score">得分:0/0</div></div></div><div class="game-card"><div class="game-title">⚖️ pH中和调节器</div><div class="game-area" id="game2Area"><p>🎯 目标pH: <strong id="tPh">7</strong></p><p>当前pH: <strong id="cPh">7.0</strong></p><div><button class="game-btn" id="addAcidG">➕ 加酸</button><button class="game-btn" id="addBaseG">➕ 加碱</button></div><div><button class="game-btn" id="checkG">🔍 检查</button><button class="game-btn" id="resetG2">🔄 新目标</button></div><div id="g2msg" class="score-display"></div></div></div></div></div>`; }
+    function bindGames(){ let g1=document.getElementById('game1Area'); if(g1) initGame1(g1); let g2=document.getElementById('game2Area'); if(g2) initGame2(g2); }
+
+    // ================= 学术活动板块 =================
+    function renderEvents(){
+        let userSubmission = currentUser ? users.find(u=>u.username===currentUser.username)?.eventSubmission : null;
+        return `<div class="card-module">
+            <div class="section-title"><i class="fas fa-trophy"></i> 🏆 学术活动 · 假期复习挑战</div>
+            <div class="event-hero">
+                <h2 style="font-size:1.8rem;">📚 「完成假期复习册」挑战赛</h2>
+                <p style="margin-top:0.5rem;">完成假期科学复习册（酸碱单元），提交证明，争夺丰厚奖励！</p>
+                <div style="display:flex; gap:1rem; margin-top:1rem; flex-wrap:wrap;">
+                    <div class="prize-card"><div><strong>🥇 冠军</strong><br>100 港币现金 + 荣誉奖状</div><div class="prize-badge">🏅 第一名</div></div>
+                    <div class="prize-card"><div><strong>🥈 亚军</strong><br>20 港币现金 + 荣誉奖状</div><div class="prize-badge">🎖️ 第二名</div></div>
+                    <div class="prize-card"><div><strong>🥉 季军</strong><br>20 港币现金 + 荣誉奖状</div><div class="prize-badge">🎖️ 第三名</div></div>
+                </div>
+                <p style="margin-top:1rem;"><i class="fas fa-calendar-alt"></i> 截止日期：2025年4月30日 · 前三名皆有奖状及现金奖励！</p>
+            </div>
+            <div class="about-card">
+                <h3>📋 如何参与</h3>
+                <p>1. 完成假期科学复习册中「酸和碱」单元所有练习<br>2. 拍照或扫描提交完成证明（下方提交按钮）<br>3. 评审团根据完成质量、准确率评选前三名<br>4. 结果将于截止后一周内公布，并颁发奖励</p>
+                ${currentUser ? (userSubmission ? `<div class="prize-badge" style="background:#c6f0d1;">✅ 你已提交参与！等待评审结果 ✨</div>` : `<button class="auth-btn" id="submitEventBtn" style="margin-top:1rem; background:#48b5c0; color:white;">📤 提交我的完成证明 (复习册完成声明)</button>`) : `<p style="margin-top:1rem;"><button class="auth-btn" id="loginToEvent">🔐 登录后即可参与活动</button></p>`}
+            </div>
+            <div class="leaderboard">
+                <h3>🏅 当前参与榜 (提交顺序)</h3>
+                <div id="leaderboardList">${renderLeaderboard()}</div>
+            </div>
+        </div>`;
+    }
+    function renderLeaderboard(){
+        let participants = users.filter(u=>u.eventSubmission).sort((a,b)=>new Date(a.eventSubmission) - new Date(b.eventSubmission));
+        if(participants.length===0) return "<p>暂无参与者，快来成为第一个！</p>";
+        return participants.map((u,i)=>`<div class="leaderboard-item"><span>${i+1}. ${u.username}</span><span>📅 ${new Date(u.eventSubmission).toLocaleDateString()}</span></div>`).join('');
+    }
+    function bindEvents(){
+        let btn=document.getElementById('submitEventBtn');
+        if(btn) btn.onclick=()=>{
+            if(!currentUser){ showMessage("请先登录",true); return; }
+            let user=users.find(u=>u.username===currentUser.username);
+            if(user.eventSubmission){ showMessage("你已经提交过了！",false); return; }
+            user.eventSubmission=new Date().toISOString();
+            saveUsers();
+            showMessage("✅ 提交成功！你的假期复习册已完成记录，静候佳音~",false);
+            renderActiveTab();
+        };
+        let loginBtn=document.getElementById('loginToEvent');
+        if(loginBtn) loginBtn.onclick=()=>showAuthModal('login');
+    }
+
+    // ================= 练习 =================
+    const bank=[{text:"What is the taste of acids?",options:["Sour","Bitter","Sweet"],correct:0},{text:"Which is an everyday alkali?",options:["Lemon","Soap","Vinegar"],correct:1},{text:"Blue litmus in acid turns?",options:["Blue","Red","Green"],correct:1},{text:"pH of pure water?",options:["0","7","14"],correct:1},{text:"Acid + Metal → ?",options:["Salt+Water","Salt+H₂","Salt+CO₂"],correct:1}];
+    let qs=null;
+    function getQs(){ if(!qs) qs=[...bank].sort(()=>Math.random()-0.5).slice(0,5); return qs; }
+    function refreshQs(){ qs=[...bank].sort(()=>Math.random()-0.5).slice(0,5); renderActiveTab(); showMessage("✨ 新题目已生成",false); }
+    function renderPractice(){ let qlist=getQs(); return `<div class="card-module"><div class="section-title">📝 酸碱概念练习</div>${qlist.map((q,i)=>`<div class="quiz-question" data-correct="${q.correct}"><div class="question-text">${i+1}. ${q.text}</div><div class="options" id="opts_${i}">${q.options.map((o,oi)=>`<button class="opt-btn" data-optidx="${oi}">${o}</button>`).join('')}</div><div class="feedback" id="fb_${i}"></div></div>`).join('')}<button class="generate-btn" id="refreshQ">🔄 刷新题目</button></div>`; }
+    function bindPractice(){ for(let i=0;i<getQs().length;i++){ let cont=document.getElementById(`opts_${i}`); if(cont){ cont.querySelectorAll('.opt-btn').forEach(b=>{ b.onclick=(e)=>{ let parent=b.closest('.quiz-question'); let cor=parseInt(parent.dataset.correct); let sel=parseInt(b.dataset.optidx); let fb=parent.querySelector('.feedback'); if(sel===cor){ fb.innerHTML='<span class="correct-feedback">✓ 正确！</span>'; b.style.background="#b8dec4"; showMessage("答对了！",false); }else{ fb.innerHTML=`<span class="wrong-feedback">✗ 正确答案: ${getQs()[i].options[cor]}</span>`; b.style.background="#f3cfcf"; showMessage("再试试",true); } setTimeout(()=>{ if(fb) fb.innerHTML=""; if(b) b.style.background=""; },1500); }; }); } } let ref=document.getElementById('refreshQ'); if(ref) ref.onclick=()=>refreshQs(); }
+
+    // ================= 笔记页面 =================
+    function renderNotesPage(){ return `<div class="card-module"><div class="section-title">📔 我的学习笔记</div><div class="notes-container"><div class="note-editor"><input type="text" id="noteTitle" placeholder="标题" class="note-title-input"><textarea id="noteContent" placeholder="记录学习心得..." class="note-content-input"></textarea><button class="auth-btn" id="saveNoteBtn">💾 保存笔记</button></div><div id="notesListContainer">${renderNotesList()}</div></div></div>`; }
+    function bindNotes(){ let btn=document.getElementById('saveNoteBtn'); if(btn) btn.onclick=()=>{ let t=document.getElementById('noteTitle').value.trim(); let c=document.getElementById('noteContent').value.trim(); if(!c){ showMessage("填写内容",true); return; } if(saveNote(t,c)){ document.getElementById('noteTitle').value=''; document.getElementById('noteContent').value=''; renderActiveTab(); } }; }
+
+    // ================= 关于我们 (更新成员) =================
+    function renderAbout(){ return `<div class="card-module"><div class="section-title"><i class="fas fa-users"></i> 关于 MQDA · 班级英文科学互助小组</div><div class="about-grid"><div class="about-card"><i class="fas fa-code" style="font-size:2rem; color:#1f6e8c;"></i><h3>💻 主要技术支援</h3><div class="member-badge"><i class="fas fa-user-astronaut"></i> 羅涵 (Alex Luo)</div><p style="margin-top:0.5rem;">全栈开发、平台架构、互动系统设计</p></div><div class="about-card"><i class="fas fa-palette" style="font-size:2rem; color:#1f6e8c;"></i><h3>🎨 协助 & 项目设计</h3><div><div class="member-badge">毛梓墨</div><div class="member-badge">丁贊</div><div class="member-badge">林以恆</div><div class="member-badge">吳丹</div></div><p style="margin-top:0.5rem;">内容策划、学习资料整理、游戏机制设计、学术活动组织</p></div><div class="about-card"><i class="fas fa-heart" style="font-size:2rem; color:#1f6e8c;"></i><h3>🤝 我们的使命</h3><p>帮助班级同学用英语掌握科学，让学习不再有语言障碍。我们提供双语知识库、互动游戏、学习笔记和学术激励，一起进步！</p></div></div><div class="quote-text"><i class="fas fa-quote-left"></i> "Science without borders — 用英语探索科学，让知识跨越语言！" 欢迎加入我们的学习小组，一起征服酸碱化学！<br><strong>✉️ 联络：mqda.science@study.com | 🎮 每周五课后互助答疑</strong></div></div>`; }
+
+    // ================= 个人资料 =================
+    function renderProfile(){ if(!currentUser) return `<div class="card-module"><h3>🔐 请登录</h3><button class="auth-btn" id="profileLoginBtn">登录</button></div>`; return `<div class="card-module"><div class="section-title">🧑‍🔬 科学档案</div><p><i class="fas fa-user"></i> ${currentUser.username}</p><p>📚 已完成酸碱7大板块</p><p>📝 笔记: ${getUserNotes().length}条</p><button class="auth-btn" id="mottoBtn">✨ 学习格言</button></div>`; }
+    function bindProfile(){ let btn=document.getElementById('profileLoginBtn'); if(btn) btn.onclick=()=>showAuthModal('login'); let m=document.getElementById('mottoBtn'); if(m) m.onclick=()=>showMessage("🧪 科学是探索的旅程，笔记是成长的足迹！",false); }
+
+    // ================= 主渲染 =================
+    function renderActiveTab(){
+        let cont=document.getElementById('mainContent');
+        if(activeTab==='home'){ cont.innerHTML=renderHome(); document.querySelectorAll('.detail-btn').forEach(b=>{ b.onclick=()=>openDetailPage(chapters[parseInt(b.dataset.idx)]); }); }
+        else if(activeTab==='games'){ cont.innerHTML=renderGames(); bindGames(); }
+        else if(activeTab==='practice'){ cont.innerHTML=renderPractice(); bindPractice(); }
+        else if(activeTab==='events'){ cont.innerHTML=renderEvents(); bindEvents(); }
+        else if(activeTab==='notes'){ cont.innerHTML=renderNotesPage(); bindNotes(); }
+        else if(activeTab==='about'){ cont.innerHTML=renderAbout(); }
+        else{ cont.innerHTML=renderProfile(); bindProfile(); }
+        document.querySelectorAll('.nav-btn').forEach(btn=>{ if(btn.dataset.nav===activeTab) btn.classList.add('active'); else btn.classList.remove('active'); });
+    }
+    function setupNav(){ document.querySelectorAll('.nav-btn').forEach(btn=>{ btn.onclick=()=>{ activeTab=btn.dataset.nav; renderActiveTab(); showMessage(`📖 ${activeTab==='home'?'知识库':activeTab==='games'?'游戏':activeTab==='practice'?'练习':activeTab==='events'?'学术活动':activeTab==='notes'?'笔记':activeTab==='about'?'关于我们':'个人资料'}`,false); }; }); }
+    updateAuthUI(); setupNav(); renderActiveTab();
+</script>
+</body>
+</html>
