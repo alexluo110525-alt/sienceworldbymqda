@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Science world | 酸碱化学 · 沉浸式学习 by MQDA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #eef2f5 0%, #e0e8f0 100%);
+            padding: 2rem;
+            position: relative;
+        }
+
+        .glass-app {
+            width: 1400px;
+            max-width: 95vw;
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(16px);
+            border-radius: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 0 0 0.5px rgba(255,255,255,0.6) inset;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo h2 {
+            font-weight: 700;
+            background: linear-gradient(135deg, #1a3c5c, #2b5a7a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 1.7rem;
+        }
+
+        .logo p {
+            font-size: 0.7rem;
+            color: #4a627a;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.8rem;
+            background: rgba(255,255,240,0.5);
+            padding: 0.4rem 0.8rem;
+            border-radius: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: #2c3e4e;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.5rem 1.2rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn.active {
+            background: #ffffffcc;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            color: #1f5e7e;
+            font-weight: 600;
+        }
+
+        .nav-btn:hover:not(.active) {
+            background: rgba(255,255,255,0.7);
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .auth-btn {
+            background: #ffffffaa;
+            border: 1px solid #cbdbe0;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            color: #2c4f6e;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .auth-btn:hover {
+            background: white;
+            transform: scale(0.97);
+        }
+
+        .user-greeting {
+            color: #1e4663;
+            background: #ffffffcc;
+            padding: 0.3rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .content-panel {
+            padding: 2rem;
+            min-height: 620px;
+            transition: all 0.3s ease;
+            animation: fadeSlideUp 0.35s ease-out;
+        }
+
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(10px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        .card-module {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 1.8rem;
+            border: 1px solid rgba(255,255,255,0.9);
+            padding: 1.8rem;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            font-size: 1.7rem;
+            font-weight: 650;
+            margin-bottom: 1.2rem;
+            color: #1e3b4f;
+            border-left: 5px solid #48b5c0;
+            padding-left: 1rem;
+        }
+
+        /* 知识卡片网格 */
+        .knowledge-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .term-card {
+            background: rgba(245, 248, 250, 0.8);
+            border-radius: 1.2rem;
+            padding: 1rem 1.2rem;
+            border: 1px solid #e2edf2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .term-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #1c5d7a;
+        }
+
+        .detail-btn {
+            background: #d4e7f0;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            color: #1c5d7a;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        /* 游戏卡片样式 */
+        .games-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        .game-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            flex: 1 1 400px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: transform 0.2s;
+            border: 1px solid #e2edf2;
+        }
+        .game-card:hover {
+            transform: translateY(-4px);
+        }
+        .game-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1f5e7e;
+            margin-bottom: 1rem;
+        }
+        .game-area {
+            background: #f8fafd;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            min-height: 250px;
+        }
+        .game-btn {
+            background: #cbe3ef;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 2rem;
+            margin: 0.3rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: #1f5e7e;
+            transition: 0.1s;
+        }
+        .game-btn:hover {
+            background: #b8d4e5;
+            transform: scale(0.98);
+        }
+        .score-display {
+            font-weight: bold;
+            margin-top: 0.8rem;
+            color: #2b6a4e;
+        }
+        .item-button {
+            background: #eef2f8;
+            border: 1px solid #cbdbe2;
+            padding: 0.6rem 1rem;
+            border-radius: 2rem;
+            margin: 0.3rem;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+        .item-button:hover {
+            background: #d4e3ef;
+        }
+
+        /* 笔记板块样式 */
+        .notes-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .note-editor {
+            background: #f8fafd;
+            border-radius: 1.2rem;
+            padding: 1.2rem;
+        }
+        .note-title-input {
+            width: 100%;
+            padding: 0.8rem;
+            font-size: 1.1rem;
+            border: 1px solid #cbdbe2;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            background: white;
+        }
+        .note-content-input {
+            width: 100%;
+            min-height: 150px;
+            padding: 0.8rem;
+            font-size: 0.95rem;
+            border: 1px solid #cbdbe2;
+            border-radius: 1rem;
+            font-family: 'Inter', monospace;
+            resize: vertical;
+            background: white;
+        }
+        .note-actions {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+        .notes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .note-item {
+            background: white;
+            border-radius: 1rem;
+            padding: 1rem;
+            border-left: 4px solid #48b5c0;
+            transition: 0.1s;
+        }
+        .note-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        .note-item-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #1c5d7a;
+        }
+        .note-item-date {
+            font-size: 0.7rem;
+            color: #8ba0ae;
+        }
+        .note-item-content {
+            color: #2c4f6a;
+            line-height: 1.4;
+            margin-top: 0.5rem;
+            white-space: pre-wrap;
+        }
+        .note-item-actions {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+        }
+        .small-btn {
+            background: #eef2f8;
+            border: none;
+            padding: 0.3rem 0.8rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        /* 全屏详细学习窗口 */
+        .full-modal {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(12px);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .modal-content-glass {
+            max-width: 1300px;
+            margin: 1rem auto;
+            background: #ffffffea;
+            border-radius: 2rem;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .close-detail {
+            float: right;
+            font-size: 2rem;
+            background: none;
+            border: none;
+            color: #4a627a;
+            cursor: pointer;
+        }
+
+        .word-badge {
+            background: #eef3fc;
+            display: inline-block;
+            margin: 0.3rem 0.6rem;
+            padding: 0.3rem 0.9rem;
+            border-radius: 2rem;
+            cursor: pointer;
+        }
+
+        .exp-showcase {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        .exp-card {
+            background: #f8fafd;
+            border-radius: 1.2rem;
+            padding: 1rem;
+            flex: 1 1 260px;
+            border: 1px solid #cfdfe8;
+        }
+
+        /* 练习板块 */
+        .unit-section {
+            background: #ffffffc9;
+            border-radius: 1.5rem;
+            margin-bottom: 1.2rem;
+            overflow: hidden;
+        }
+        .unit-header {
+            background: #e7f0f5;
+            padding: 1rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            color: #1a5f7a;
+        }
+        .unit-questions {
+            padding: 1.2rem;
+            display: none;
+        }
+        .unit-questions.open {
+            display: block;
+        }
+        .quiz-question {
+            background: #f5f9fe;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 5px solid #7bcbd9;
+        }
+        .question-text {
+            font-weight: 600;
+            color: #1a3b4e;
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 0.8rem 0;
+        }
+        .opt-btn {
+            background: #eef2f8;
+            border: 1px solid #cbdbe2;
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            color: #2c4a6e;
+            cursor: pointer;
+        }
+        .feedback {
+            margin-top: 6px;
+            font-size: 0.85rem;
+        }
+        .correct-feedback { color: #2b7a4b; }
+        .wrong-feedback { color: #c25a5a; }
+        .generate-btn {
+            background: #cae1ed;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            cursor: pointer;
+        }
+
+        .toast-msg {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffffffdd;
+            backdrop-filter: blur(12px);
+            color: #1e4663;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 500;
+            z-index: 2100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .modal {
+            position: fixed;
+            top:0;left:0;
+            width:100%;height:100%;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1500;
+        }
+        .modal-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            width: 340px;
+        }
+        input {
+            background: #f0f4f9;
+            border: 1px solid #cddfe8;
+            padding: 10px;
+            border-radius: 2rem;
+            width: 100%;
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="glass-app">
+    <div class="navbar">
+        <div class="logo"><h2>🔬 Science world</h2><p>--- by MQDA · 酸碱化学深度实验室</p></div>
+        <div class="nav-links">
+            <button class="nav-btn" data-nav="home"><i class="fas fa-atom"></i> 主页</button>
+            <button class="nav-btn" data-nav="games"><i class="fas fa-gamepad"></i> 科学游戏</button>
+            <button class="nav-btn" data-nav="practice"><i class="fas fa-flask"></i> 练习</button>
+            <button class="nav-btn" data-nav="notes"><i class="fas fa-book-open"></i> 我的笔记</button>
+            <button class="nav-btn" data-nav="profile"><i class="fas fa-user-astronaut"></i> 个人资料</button>
+        </div>
+        <div class="user-area" id="userArea"></div>
+    </div>
+    <div class="content-panel" id="mainContent"></div>
+</div>
+
+<script>
+    // ================= 用户管理 =================
+    let currentUser = null;
+    let activeTab = "home";
+    let users = JSON.parse(localStorage.getItem("scienceUsers")) || [];
+    const adminUsername = "alexluothegoat", adminPassword = "110525Lh";
+    if(!users.find(u=>u.username===adminUsername)) users.push({username:adminUsername,password:adminPassword,notes:[]});
+    function saveUsers(){ localStorage.setItem("scienceUsers",JSON.stringify(users)); }
+    function registerUser(u,p){ if(!u||!p||users.find(x=>x.username===u)) return false; users.push({username:u,password:p,notes:[]}); saveUsers(); return true; }
+    function loginUser(u,p){ return users.find(x=>x.username===u && x.password===p)||null; }
+    function showMessage(msg,isErr=false){ let d=document.querySelector('.toast-msg'); if(d) d.remove(); let div=document.createElement('div'); div.className='toast-msg'; div.innerText=msg; if(isErr) div.style.color="#c25a5a"; document.body.appendChild(div); setTimeout(()=>div.remove(),2200);}
+    function updateAuthUI(){
+        let container=document.getElementById("userArea");
+        if(currentUser){
+            container.innerHTML=`<span class="user-greeting"><i class="fas fa-user-check"></i> ${currentUser.username}</span><button class="auth-btn" id="logoutBtn">登出</button>`;
+            document.getElementById("logoutBtn")?.addEventListener('click',()=>{currentUser=null; showMessage("已安全登出"); updateAuthUI(); renderActiveTab();});
+        } else {
+            container.innerHTML=`<button class="auth-btn" id="showLoginBtn">登录</button><button class="auth-btn" id="showRegisterBtn">注册</button>`;
+            document.getElementById("showLoginBtn")?.addEventListener('click',()=>showAuthModal('login'));
+            document.getElementById("showRegisterBtn")?.addEventListener('click',()=>showAuthModal('register'));
+        }
+    }
+    function showAuthModal(mode){
+        let mDiv=document.createElement('div'); mDiv.className='modal';
+        mDiv.innerHTML=`<div class="modal-card"><h3 style="color:#1f5f7e">${mode==='login'?'登录':'注册'}</h3><input id="modalUser" placeholder="用户名"><input id="modalPwd" type="password" placeholder="密码"><button class="auth-btn" id="modalSubmit" style="background:#cbe3ef;">${mode==='login'?'登录':'注册'}</button><button class="auth-btn" id="modalClose">取消</button></div>`;
+        document.body.appendChild(mDiv);
+        let submit=document.getElementById('modalSubmit'), closeB=document.getElementById('modalClose');
+        submit.onclick=()=>{
+            let un=document.getElementById('modalUser').value.trim(), pw=document.getElementById('modalPwd').value.trim();
+            if(!un||!pw){ showMessage("输入完整",true); return; }
+            if(mode==='login'){
+                let u=loginUser(un,pw);
+                if(u){ currentUser=u; showMessage(`欢迎 ${un}`); updateAuthUI(); renderActiveTab(); mDiv.remove();}
+                else showMessage("账号或密码错误",true);
+            } else {
+                if(registerUser(un,pw)){ showMessage("注册成功，请登录"); mDiv.remove(); showAuthModal('login');}
+                else showMessage("用户名已存在",true);
+            }
+        };
+        closeB.onclick=()=>mDiv.remove();
+    }
+
+    // ================= 笔记功能 =================
+    function getUserNotes(){
+        if(!currentUser) return [];
+        let user = users.find(u=>u.username===currentUser.username);
+        if(!user.notes) user.notes = [];
+        return user.notes;
+    }
+    function saveNote(title, content){
+        if(!currentUser) { showMessage("请先登录",true); return false; }
+        let user = users.find(u=>u.username===currentUser.username);
+        if(!user.notes) user.notes = [];
+        user.notes.unshift({
+            id: Date.now(),
+            title: title || "无标题笔记",
+            content: content,
+            date: new Date().toLocaleString()
+        });
+        saveUsers();
+        showMessage("笔记已保存！", false);
+        return true;
+    }
+    function deleteNote(noteId){
+        if(!currentUser) return;
+        let user = users.find(u=>u.username===currentUser.username);
+        user.notes = user.notes.filter(n=>n.id != noteId);
+        saveUsers();
+        showMessage("笔记已删除", false);
+        renderActiveTab();
+    }
+    function renderNotes(){
+        let notes = getUserNotes();
+        if(notes.length === 0){
+            return `<div style="text-align:center; padding:2rem; color:#6f8aa3;">📭 暂无笔记，点击下方添加第一条学习笔记吧~</div>`;
+        }
+        return `<div class="notes-list">
+            ${notes.map(note => `
+                <div class="note-item">
+                    <div class="note-item-header">
+                        <span class="note-item-title">📝 ${escapeHtml(note.title)}</span>
+                        <span class="note-item-date">${note.date}</span>
+                    </div>
+                    <div class="note-item-content">${escapeHtml(note.content).replace(/\n/g,'<br>')}</div>
+                    <div class="note-item-actions">
+                        <button class="small-btn" onclick="deleteNote(${note.id})">删除笔记</button>
+                    </div>
+                </div>
+            `).join('')}
+        </div>`;
+    }
+    function escapeHtml(str){ return str.replace(/[&<>]/g, function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+    window.deleteNote = deleteNote;
+
+    // ================= 知识库 =================
+    const knowledgeChapters = [
+        { id: "common", title: "🧪 1. Common Acids and Alkalis", content: `<strong>Acids:</strong> Sour taste, found in food: vinegar, lemon, soft drinks, yoghurt, apples.<br><strong>Alkalis:</strong> Bitter, soapy feel. Examples: soap, toothpaste, baking soda, bleach, sodium hydroxide.`, words: [{eng:"Acid",chi:"酸"},{eng:"Alkali",chi:"鹼"},{eng:"Vinegar",chi:"醋"},{eng:"Citric acid",chi:"檸檬酸"}] },
+        { id: "properties", title: "📊 2. Properties of Acids and Alkalis", content: `<strong>Acids:</strong> Sour taste, corrosive, turn blue litmus → red. <strong>Alkalis:</strong> Bitter taste, slippery feel, corrosive, turn red litmus → blue.`, words: [{eng:"Corrosive",chi:"腐蝕性"},{eng:"Litmus",chi:"石蕊試紙"}] },
+        { id: "indicators", title: "🎨 3. Indicators & Testing", content: `Indicators change colour with pH. Litmus: Blue→red(acid), Red→blue(alkali). Universal indicator gives full spectrum.`, words: [{eng:"Indicator",chi:"指示劑"}] },
+        { id: "phscale", title: "📏 4. pH Scale", content: `Range 0-14. pH<7 acidic, pH=7 neutral, pH>7 alkaline.`, words: [{eng:"pH scale",chi:"pH標度"}] },
+        { id: "reactions", title: "⚗️ 5. Reactions of Acids", content: `<strong>Neutralisation:</strong> Acid + Alkali → Salt + Water.<br><strong>Acid + Metal:</strong> → Salt + Hydrogen.<br><strong>Acid + Carbonate:</strong> → Salt + Water + CO₂.`, words: [{eng:"Neutralisation",chi:"中和作用"}] }
+    ];
+
+    function openDetailPage(chapter) {
+        let modalDiv = document.createElement('div'); modalDiv.className='full-modal';
+        let wordHtml = `<div style="margin:15px 0">${chapter.words.map(w=>`<span class="word-badge" data-trans="${w.chi}">📖 ${w.eng} <i class="fas fa-language"></i></span>`).join('')}</div>`;
+        modalDiv.innerHTML = `<div class="modal-content-glass"><button class="close-detail">&times;</button>
+            <h2 style="color:#1c5d7a;">${chapter.title}</h2>
+            <div style="color:#2c4f6a; line-height:1.5;">${chapter.content}</div>
+            <h3>🔤 核心词汇 (点击显示翻译)</h3>${wordHtml}
+        </div>`;
+        document.body.appendChild(modalDiv);
+        modalDiv.querySelector('.close-detail').onclick = ()=>modalDiv.remove();
+        modalDiv.querySelectorAll('.word-badge').forEach(el=>{
+            el.addEventListener('click',()=>{ let trans = el.getAttribute('data-trans'); if(trans) showMessage(`🇨🇳 中文: ${trans}`,false); });
+        });
+    }
+
+    function renderHome(){
+        return `<div class="card-module"><div class="section-title"><i class="fas fa-microscope"></i> 酸碱化学 · 完整知识库</div>
+        <div class="knowledge-grid">
+            ${knowledgeChapters.map((ch,idx)=>`<div class="term-card"><div><div class="term-title">${ch.title}</div></div><button class="detail-btn" data-chapter-idx="${idx}"><i class="fas fa-flask"></i> 详细学习</button></div>`).join('')}
+        </div>
+        </div>`;
+    }
+
+    // ================= 游戏板块：两款完整互动游戏 =================
+    function initGame1(container){
+        let items = [
+            { name: "柠檬汁", type: "acid" }, { name: "醋", type: "acid" }, { name: "汽水", type: "acid" },
+            { name: "肥皂", type: "alkali" }, { name: "牙膏", type: "alkali" }, { name: "小苏打", type: "alkali" },
+            { name: "酸奶", type: "acid" }, { name: "漂白水", type: "alkali" }
+        ];
+        let currentItems = [...items];
+        let score = 0, totalAnswered = 0;
+        function updateDisplay(){
+            let listDiv = container.querySelector('#game1ItemsList');
+            if(!listDiv) return;
+            if(currentItems.length === 0){
+                listDiv.innerHTML = `<p style="color:#2b6a4e;">🎉 恭喜！你完成了所有分类挑战！🎉</p>`;
+                container.querySelector('#game1Score').innerHTML = `最终得分: ${score} / ${totalAnswered}`;
+                return;
+            }
+            listDiv.innerHTML = '';
+            currentItems.forEach((item, idx) => {
+                let btn = document.createElement('button');
+                btn.className = 'item-button';
+                btn.innerText = item.name;
+                btn.onclick = () => {
+                    let choice = prompt(`“${item.name}” 是酸性(acid)还是碱性(alkali)? 输入 "acid" 或 "alkali"`).toLowerCase();
+                    if(choice === item.type){
+                        score++;
+                        showMessage(`✅ 正确！${item.name} 是 ${item.type==='acid'?'酸性':'碱性'}`, false);
+                    } else {
+                        showMessage(`❌ 错误！${item.name} 实际是 ${item.type==='acid'?'酸性':'碱性'}`, true);
+                    }
+                    totalAnswered++;
+                    currentItems.splice(idx,1);
+                    container.querySelector('#game1Score').innerHTML = `得分: ${score} / ${totalAnswered}`;
+                    updateDisplay();
+                };
+                listDiv.appendChild(btn);
+            });
+        }
+        updateDisplay();
+        let resetBtn = container.querySelector('#resetGame1');
+        if(resetBtn){
+            resetBtn.onclick = () => {
+                currentItems = [...items];
+                score = 0;
+                totalAnswered = 0;
+                container.querySelector('#game1Score').innerHTML = `得分: 0 / 0`;
+                updateDisplay();
+                showMessage("游戏已重置！", false);
+            };
+        }
+    }
+
+    function initGame2(container){
+        let targetPh = Math.floor(Math.random() * 13) + 2;
+        let currentPh = 7;
+        function updateUI(){
+            let targetSpan = container.querySelector('#targetPhSpan');
+            let currentSpan = container.querySelector('#currentPhSpan');
+            let msgDiv = container.querySelector('#phGameMsg');
+            if(targetSpan) targetSpan.innerText = targetPh;
+            if(currentSpan) currentSpan.innerText = currentPh.toFixed(1);
+        }
+        updateUI();
+        let acidBtn = container.querySelector('#game2AddAcid');
+        let baseBtn = container.querySelector('#game2AddBase');
+        let checkBtn = container.querySelector('#game2Check');
+        let resetBtn = container.querySelector('#game2Reset');
+        if(acidBtn) acidBtn.onclick = () => { currentPh = Math.max(0, currentPh - 0.7); updateUI(); showMessage("➕ 加入酸，pH降低",false); };
+        if(baseBtn) baseBtn.onclick = () => { currentPh = Math.min(14, currentPh + 0.7); updateUI(); showMessage("➕ 加入碱，pH升高",false); };
+        if(checkBtn) checkBtn.onclick = () => {
+            let msgDiv = container.querySelector('#phGameMsg');
+            if(Math.abs(currentPh - targetPh) < 0.6){
+                msgDiv.innerHTML = "🎉 完美中和！恭喜你达到目标pH！ 🎉";
+                showMessage("中和成功！科学大师", false);
+            } else {
+                msgDiv.innerHTML = `❌ 未达到目标，当前pH ${currentPh.toFixed(1)}，目标 ${targetPh}，继续调整！`;
+                showMessage("再试试酸碱比例", true);
+            }
+        };
+        if(resetBtn) resetBtn.onclick = () => {
+            targetPh = Math.floor(Math.random() * 13) + 2;
+            currentPh = 7;
+            updateUI();
+            let msgDiv = container.querySelector('#phGameMsg');
+            if(msgDiv) msgDiv.innerHTML = "新回合！调整酸碱达到目标pH~";
+            showMessage(`新目标pH = ${targetPh}`, false);
+        };
+    }
+
+    function renderGames(){
+        return `<div class="card-module">
+            <div class="section-title"><i class="fas fa-gamepad"></i> 🎮 酸碱科学游戏中心</div>
+            <div class="games-grid">
+                <div class="game-card">
+                    <div class="game-title">🧪 游戏一：酸碱分类大师</div>
+                    <p>点击物品，输入 acid 或 alkali 进行分类挑战！</p>
+                    <div class="game-area" id="game1Area">
+                        <div id="game1ItemsList" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:15px;"></div>
+                        <button class="game-btn" id="resetGame1">🔄 重置游戏</button>
+                        <div class="score-display" id="game1Score">得分: 0 / 0</div>
+                    </div>
+                </div>
+                <div class="game-card">
+                    <div class="game-title">⚖️ 游戏二：pH中和调节器</div>
+                    <p>调节酸碱，让溶液达到随机目标pH值！</p>
+                    <div class="game-area" id="game2Area">
+                        <p><strong>🎯 目标pH值: <span id="targetPhSpan">7</span></strong></p>
+                        <p>当前pH: <strong id="currentPhSpan">7.0</strong></p>
+                        <div><button class="game-btn" id="game2AddAcid">➕ 加酸 (-0.7 pH)</button> <button class="game-btn" id="game2AddBase">➕ 加碱 (+0.7 pH)</button></div>
+                        <div><button class="game-btn" id="game2Check">🔍 检查中和</button> <button class="game-btn" id="game2Reset">🔄 新目标</button></div>
+                        <div class="score-display" id="phGameMsg"></div>
+                    </div>
+                </div>
+            </div>
+            <p style="margin-top:1rem; color:#4c6e85;"><i class="fas fa-lightbulb"></i> 提示：游戏一点击物品后输入框输入 acid 或 alkali；游戏二通过按钮调节pH，点击检查是否中和。</p>
+        </div>`;
+    }
+
+    function bindGamesEvents(){
+        let game1Area = document.getElementById('game1Area');
+        let game2Area = document.getElementById('game2Area');
+        if(game1Area) initGame1(game1Area);
+        if(game2Area) initGame2(game2Area);
+    }
+
+    // ================= 练习板块 =================
+    const conceptBank = [
+        {text: "What is the taste of acids?", options:["Sour","Bitter","Sweet","Salty"], correct:0},
+        {text: "Which of the following is an everyday alkali?", options:["Lemon juice","Soap","Vinegar","Soft drink"], correct:1},
+        {text: "What colour does blue litmus turn in acidic solution?", options:["Blue","Red","Green","Yellow"], correct:1},
+        {text: "pH value of pure water is ___", options:["0","7","14","5"], correct:1},
+        {text: "What happens when an acid reacts with a metal?", options:["Oxygen gas","Hydrogen gas","Carbon dioxide","Water"], correct:1},
+        {text: "Acid rain is mainly caused by ___", options:["CO₂ only","SO₂ and NOₓ","Ozone","CFCs"], correct:1},
+        {text: "Which is a safety rule in lab?", options:["Taste chemicals","Wear goggles","Mix bleach with acid","Add water to acid"], correct:1},
+        {text: "Neutralisation produces ___ and water.", options:["Salt","Hydrogen","Carbon dioxide","Metal"], correct:0}
+    ];
+    function getRandomQuestions(count=6){ let shuffled=[...conceptBank]; for(let i=shuffled.length-1;i>0;i--){ let j=Math.floor(Math.random()*(i+1)); [shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]]; } return shuffled.slice(0,count); }
+    let unitQuestions = null;
+    function getUnitQuestions(){ if(!unitQuestions) unitQuestions=getRandomQuestions(6); return unitQuestions; }
+    function refreshQuestions(){ unitQuestions=getRandomQuestions(6); renderActiveTab(); showMessage("✨ 已生成全新题目",false); }
+
+    function renderPractice(){
+        let qs=getUnitQuestions();
+        let qHtml=qs.map((q,i)=>`<div class="quiz-question" data-correct="${q.correct}" data-options='${JSON.stringify(q.options)}'><div class="question-text">${i+1}. ${q.text}</div><div class="options" id="opts_u_${i}">${q.options.map((opt,oidx)=>`<button class="opt-btn" data-optidx="${oidx}">${opt}</button>`).join('')}</div><div class="feedback" id="fb_u_${i}"></div></div>`).join('');
+        return `<div class="card-module"><div class="section-title"><i class="fas fa-brain"></i> 📝 酸碱概念练习</div>
+        <div class="unit-section"><div class="unit-header"><span>🧪 酸碱单元练习 (S.2 考纲)</span><i class="fas fa-chevron-down"></i></div><div class="unit-questions open" id="unitContent">${qHtml}<button class="generate-btn" id="refreshPracticeBtn" style="margin-top:10px;">🔄 刷新题目</button></div></div></div>`;
+    }
+    function bindPracticeEvents(){
+        let qs=getUnitQuestions();
+        for(let i=0;i<qs.length;i++){
+            let container=document.getElementById(`opts_u_${i}`);
+            if(container){
+                let btns=container.querySelectorAll('.opt-btn');
+                btns.forEach(btn=>{
+                    btn.removeEventListener('click',practiceAnswer);
+                    btn.addEventListener('click',practiceAnswer);
+                });
+            }
+        }
+        let refreshBtn=document.getElementById('refreshPracticeBtn');
+        if(refreshBtn) refreshBtn.onclick=()=>{ refreshQuestions(); };
+    }
+    function practiceAnswer(e){
+        let btn=e.currentTarget;
+        let parent=btn.closest('.quiz-question');
+        let correctIdx=parseInt(parent.getAttribute('data-correct'));
+        let selected=parseInt(btn.getAttribute('data-optidx'));
+        let opts=JSON.parse(parent.getAttribute('data-options'));
+        let fbDiv=parent.querySelector('.feedback');
+        if(selected===correctIdx){ fbDiv.innerHTML=`<span class="correct-feedback">✓ 正确！ ${opts[correctIdx]}</span>`; btn.style.backgroundColor="#b8dec4"; showMessage("🎉 答对了！",false);}
+        else{ fbDiv.innerHTML=`<span class="wrong-feedback">✗ 正确答案: ${opts[correctIdx]}</span>`; btn.style.backgroundColor="#f3cfcf"; showMessage("再复习一下酸碱性质",true);}
+        setTimeout(()=>{ if(fbDiv) fbDiv.innerHTML=""; if(btn) btn.style.backgroundColor=""; },1500);
+    }
+
+    // ================= 笔记板块渲染 =================
+    function renderNotesPage(){
+        return `<div class="card-module">
+            <div class="section-title"><i class="fas fa-book-open"></i> 📔 我的学习笔记</div>
+            <div class="notes-container">
+                <div class="note-editor">
+                    <input type="text" id="noteTitle" class="note-title-input" placeholder="笔记标题...">
+                    <textarea id="noteContent" class="note-content-input" placeholder="写下你的学习心得、知识点总结、疑问记录..."></textarea>
+                    <div class="note-actions">
+                        <button class="auth-btn" id="saveNoteBtn"><i class="fas fa-save"></i> 保存笔记</button>
+                    </div>
+                </div>
+                <div id="notesListContainer">
+                    ${renderNotes()}
+                </div>
+            </div>
+        </div>`;
+    }
+    function bindNotesEvents(){
+        let saveBtn = document.getElementById('saveNoteBtn');
+        if(saveBtn){
+            saveBtn.onclick = () => {
+                let title = document.getElementById('noteTitle').value.trim();
+                let content = document.getElementById('noteContent').value.trim();
+                if(!content){ showMessage("请填写笔记内容", true); return; }
+                if(saveNote(title || "学习笔记", content)){
+                    document.getElementById('noteTitle').value = '';
+                    document.getElementById('noteContent').value = '';
+                    renderActiveTab();
+                }
+            };
+        }
+    }
+
+    // ================= 个人资料 =================
+    function renderProfile(){
+        if(!currentUser) return `<div class="card-module"><h3 style="color:#1e5c7a;">🔐 请登录查看学习历程</h3><button class="auth-btn" id="profileLoginBtn">登录</button></div>`;
+        return `<div class="card-module"><div class="section-title">🧑‍🔬 科学档案</div><p><i class="fas fa-user"></i> ${currentUser.username}</p><p>📚 已完成酸碱全部知识板块 + 两款科学游戏</p><p>📝 笔记数量: ${getUserNotes().length} 条</p><p>🏆 练习模式: 概念强化题库</p><button class="auth-btn" id="motivateBtn">✨ 每日格言</button></div>`;
+    }
+    function bindProfileEvents(){
+        let loginBtn=document.getElementById('profileLoginBtn'); if(loginBtn) loginBtn.onclick=()=>showAuthModal('login');
+        let moti=document.getElementById('motivateBtn'); if(moti) moti.onclick=()=>showMessage("🧪 科学游戏让你在玩中学，笔记记录成长点滴！",false);
+    }
+
+    // 主渲染
+    function renderActiveTab(){
+        let container=document.getElementById('mainContent');
+        if(activeTab==='home'){ container.innerHTML=renderHome(); document.querySelectorAll('.detail-btn').forEach(btn=>{ let idx=btn.getAttribute('data-chapter-idx'); btn.onclick=()=>openDetailPage(knowledgeChapters[parseInt(idx)]); });}
+        else if(activeTab==='games'){ container.innerHTML=renderGames(); bindGamesEvents(); }
+        else if(activeTab==='practice'){ container.innerHTML=renderPractice(); bindPracticeEvents();}
+        else if(activeTab==='notes'){ container.innerHTML=renderNotesPage(); bindNotesEvents();}
+        else{ container.innerHTML=renderProfile(); bindProfileEvents();}
+        document.querySelectorAll('.nav-btn').forEach(btn=>{ if(btn.getAttribute('data-nav')===activeTab) btn.classList.add('active'); else btn.classList.remove('active'); });
+    }
+    function setupNav(){
+        document.querySelectorAll('.nav-btn').forEach(btn=>{
+            btn.addEventListener('click',()=>{ activeTab=btn.getAttribute('data-nav'); renderActiveTab(); showMessage(`📖 ${activeTab==='home'?'知识库':activeTab==='games'?'科学游戏':activeTab==='practice'?'练习':activeTab==='notes'?'我的笔记':'个人资料'}`,false); });
+        });
+    }
+    updateAuthUI(); setupNav(); renderActiveTab();
+</script>
+</body>
+</html>
